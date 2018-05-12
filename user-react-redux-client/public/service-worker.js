@@ -1,47 +1,29 @@
-var doCache = false;
-
-var CACHE_NAME = "my-pwa-cache-v1";
-
-self.addEventListener("activate", event => {
-  const cacheWhitelist = [CACHE_NAME];
+self.addEventListener('install', function(event) {
+  console.log('[Service Worker] Installing Service Worker ...', event);
   event.waitUntil(
-    caches.keys().then(keyList =>
-      Promise.all(
-        keyList.map(key => {
-          if (!cacheWhitelist.includes(key)) {
-            console.log("Deleting cache: " + key);
-            return caches.delete(key);
-          }
-        })
-      )
-    )
+    caches.open('static').then(function(cache) {
+      cache.addAll(['/', '/index.html', '/app.js', '/manifest.json']);
+    })
   );
 });
 
-self.addEventListener("install", function(event) {
-  if (doCache) {
-    event.waitUntil(
-      caches.open(CACHE_NAME).then(function(cache) {
-        fetch("manifest.json")
-          .then(response => {
-            response.json();
-          })
-          .then(assets => {
-            const urlsToCache = ["/", assets["main.js"]];
-            cache.addAll(urlsToCache);
-            console.log("cached");
-          });
-      })
-    );
-  }
+self.addEventListener('activate', function(event) {
+  console.log('[Service Worker] Activating Service Worker ....', event);
 });
 
-self.addEventListener("fetch", function(event) {
-  if (doCache) {
-    event.respondWith(
-      caches.match(event.request).then(function(response) {
-        return response || fetch(event.request);
-      })
-    );
-  }
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      if (response) {
+        return response;
+      } else {
+        return fetch(event.request).then(function(res) {
+          return caches.open('dynamic').then(function(cache) {
+            cache.put(event.request.url, res.clone());
+            return res;
+          });
+        });
+      }
+    })
+  );
 });

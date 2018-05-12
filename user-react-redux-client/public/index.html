@@ -9,6 +9,14 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+     <!-- Tell the browser it's a PWA -->
+     <meta name="mobile-web-app-capable" content="yes">
+     <!-- Tell iOS it's a PWA -->
+     <meta name="apple-mobile-web-app-capable" content="yes">
+     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+     <meta name="apple-mobile-web-app-title" content="SocialNetworking">
+     <!-- Make sure theme-color is defined -->
+     <meta name="theme-color" content="#536878">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -19,13 +27,41 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>SocialNetworking</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .App {
+        text-align: center;
+      }
+      .App-header {
+        background-color: #222;
+        height: 150px;
+        padding: 20px;
+        color: white;
+      }
+      .App-intro {
+        font-size: large;
+      }
+    </style>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+     <!-- Filler HTML as our app starts up -->
+     <div id="root">
+      <div class="App">
+      <div class="App-header">
+        <h2>Home</h2>
+      </div>
+      <p class="App-intro">
+        Loading site...
+      </p>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -38,18 +74,18 @@
     -->
     <script>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }, function (err) {
-            console.log('ServiceWorker registration failed: ', err);
-          }).catch(function (err) {
-            console.log(err)
-          });
-        });
-      } else {
-        console.log('service worker is not supported');
-      }
+  navigator.serviceWorker
+    .register('service-worker.js')
+    .then(function(registration) {
+      console.log(
+        'Service Worker registration successful with scope: ',
+        registration.scope
+      );
+    })
+    .catch(function(err) {
+      console.log('Service Worker registration failed: ', err);
+    });
+}
     </script>
   </body>
 </html>
