@@ -73,19 +73,29 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-      if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('service-worker.js')
-    .then(function(registration) {
-      console.log(
-        'Service Worker registration successful with scope: ',
-        registration.scope
-      );
-    })
-    .catch(function(err) {
-      console.log('Service Worker registration failed: ', err);
-    });
-}
+     
+     if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+            
+            console.log('Service Worker successfully registered');
+         
+          }, function(err) {
+            console.log('Error when registering the Service Worker  ', err);
+          
+          }).catch(function(err) {
+           
+            console.log(err)
+          
+          });
+        
+        });
+      } else {
+        
+        console.log('No Support For Service Workers');
+      
+      }
+
     </script>
   </body>
 </html>
