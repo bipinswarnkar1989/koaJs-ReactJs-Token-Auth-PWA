@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleWare from 'redux-saga';
+import rootReducer from './reducers'
+import rootSaga from './sagas'
 
 const sagaMiddleWare = createSagaMiddleWare();
 
@@ -8,6 +10,8 @@ const configureStore = initialState => {
         sagaMiddleWare,
     ];
     const store = createStore(
+        rootReducer,
+        initialState,
         compose(applyMiddleware(...middlewares)),
         window.devToolsExtension ? window.devToolsExtension() : f => f // add support form redux dev tools
     );
@@ -18,6 +22,7 @@ const configureStore = initialState => {
           store.replaceReducer(nextReducer);
         });
      };
+     sagaMiddleWare.run(rootSaga);
      return store;
 }
 
