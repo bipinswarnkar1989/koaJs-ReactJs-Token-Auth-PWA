@@ -1,0 +1,25 @@
+{
+  "name": "user-koajs-server",
+  "version": "1.0.0",
+  "description": "user server for mern social",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bipinswarnkar1989/mern-pwa-social-networking.git"
+  },
+  "keywords": [
+    "mern",
+    "pwa",
+    "social",
+    "network"
+  ],
+  "author": "Bipin Swarnkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bipinswarnkar1989/mern-pwa-social-networking/issues"
+  },
+  "homepage": "https://github.com/bipinswarnkar1989/mern-pwa-social-networking#readme"
+}
