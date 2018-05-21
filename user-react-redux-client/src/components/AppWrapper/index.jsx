@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import withMuiRoot from '../../withMuiRoot';
 
-export default class Appwrapper extends Component {
+const styles = theme => ({
+  root: {
+    textAlign: 'center',
+    paddingTop: theme.spacing.unit * 20,
+  },
+});
+
+class Appwrapper extends Component {
   render() {
     return (
       <div>
@@ -9,3 +18,5 @@ export default class Appwrapper extends Component {
     )
   }
 };
+
+export default withMuiRoot(withStyles(styles)(Appwrapper));
