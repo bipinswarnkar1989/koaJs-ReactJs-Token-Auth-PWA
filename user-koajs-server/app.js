@@ -6,6 +6,8 @@ const bodyParser = require('koa-bodyparser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
+
+
 const app = new Koa();
 
 const port = process.env.PORT || 3001;
@@ -42,7 +44,10 @@ mongodb.then((() => {
       app.listen(port, () => {
         console.log(`MernSocial is listening at ${port}`)
     });
-}));
+}))
+.catch(err => console.log(err));
+
+module.exports = app;
 
 
 
