@@ -4,6 +4,8 @@ const helmet = require('koa-helmet');
 const logger = require('koa-logger');
 const bodyParser = require('koa-bodyparser');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+
 const app = new Koa();
 
 const port = process.env.PORT || 3001;
@@ -16,18 +18,32 @@ app.use(bodyParser());
 
 
 // allow cors
-app.use((req,res,next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requestes, Content-Type, Accept, Authorization');
-    next();
+app.use(async (ctx,next) => {
+    ctx.set('Access-Control-Allow-Origin', '*');
+    ctx.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+    ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requestes, Content-Type, Accept, Authorization');
+    await next();
 });
 
-// response
-app.use(async ctx => {
-  ctx.body = 'Welcome to MernSocial';
-});
+let mongoDbUri;
+if (process.env.NODE_ENV === 'dev') {
+    mongoDbUri = process.env.MONGODB_DEV_URI;
+} else {
+   mongoDbUri = process.env.MONGODB_URI;
+}
+mongoose.Promise = global.Promise;
+const mongodb = mongoose.connect(mongoDbUri);
+mongodb.then((() => {
+        // response
+        app.use(async ctx => {
+            ctx.body = '<h2 align=center>Welcome to MernSocial</h2>';
+        });
 
-app.listen(port, () => {
-    console.log(`MernSocial is listening at ${port}`)
-});
+      app.listen(port, () => {
+        console.log(`MernSocial is listening at ${port}`)
+    });
+}));
+
+
+
+
