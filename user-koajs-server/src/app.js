@@ -6,7 +6,8 @@ const bodyParser = require('koa-bodyparser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
-
+//routes
+const apiRoutes = require('./routes');
 
 const app = new Koa();
 
@@ -17,6 +18,8 @@ app.use(responseTime());
 app.use(helmet());
 app.use(logger());
 app.use(bodyParser());
+app.use(apiRoutes.routes())
+app.use(apiRoutes.allowedMethods())
 
 
 // allow cors
@@ -40,7 +43,7 @@ mongodb.then((() => {
         app.use(async ctx => {
             ctx.body = '<h2 align=center>Welcome to MernSocial</h2>';
         });
-
+    
       app.listen(port, () => {
         console.log(`MernSocial is listening at ${port}`)
     });

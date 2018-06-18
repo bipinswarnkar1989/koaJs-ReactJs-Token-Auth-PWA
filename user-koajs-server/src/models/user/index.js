@@ -33,7 +33,7 @@ userSchema.methods.comparePassword = function(password){
     return this.hash = hash;
 }
 
-userSchema,set('toJSON', {
+userSchema.set('toJSON', {
     transform:function(doc,ret,options){
         delete ret.hash;
         delete ret.salt;
