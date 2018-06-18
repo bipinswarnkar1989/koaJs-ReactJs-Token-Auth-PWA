@@ -13,28 +13,28 @@ class userController {
           await newUser.setPassword(password);
           try {
               await newUser.save();
+              const token = await jwt.sign({
+                newUser,
+                exp: Math.floor(Date.now() / 1000) + (60 * 60),
+              },process.env.SECRET_TOKEN,
+              {
+                algorithm:'HS384'
+              });
+              const resp = {
+                success:true,
+                message:'User Registered Successfully',
+                user: newUser,
+                token:token
+              }
+              ctx.body = resp;
           } catch (error) {
+            console.log(error);
               ctx.body = {
                 success:false,
                 message:'User Registration Failed!',
-                error:error
+                error:error.message
               }
           }
-
-          const token = await jwt.sign({
-            newUser,
-            exp: Math.floor(Date.now() / 1000) + (60 * 60),
-          },process.env.SECRET_TOKEN,
-          {
-            algorithm:'HS384'
-          });
-          const resp = {
-            success:true,
-            message:'User Registered Successfully',
-            user: newUser,
-            token:token
-          }
-          ctx.body = resp;
         }
       }
       

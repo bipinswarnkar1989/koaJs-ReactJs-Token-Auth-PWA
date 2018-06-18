@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const uniqueValidator = require('mongoose-unique-validator');
 
 var Schema = mongoose.Schema;
 
@@ -7,7 +8,14 @@ const userSchema = new Schema({
     email:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        index: true,
+        validate: {
+            validator: function(v) {
+              return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+            },
+            message: '{VALUE} is not a valid email address!'
+          },
       },
       hash:{
         type:String
@@ -21,6 +29,9 @@ const userSchema = new Schema({
         default:Date.now
       }
 });
+
+// Apply the uniqueValidator plugin to userSchema.
+userSchema.plugin(uniqueValidator);
 
 //Before saving create salt and hash the password
 userSchema.methods.setPassword = function(password){
