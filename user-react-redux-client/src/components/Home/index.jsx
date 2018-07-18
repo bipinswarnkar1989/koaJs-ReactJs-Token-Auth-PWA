@@ -20,7 +20,7 @@ class Home extends Component {
         const { classes } = this.props;
         return (
     <div className={classes.root}>
-      
+      <h2>Home</h2>
     </div>
         );
     }
