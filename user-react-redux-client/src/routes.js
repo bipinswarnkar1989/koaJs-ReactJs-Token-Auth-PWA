@@ -6,12 +6,13 @@ import {
 import AppWrapper from './components/AppWrapper';
 import Home from './containers/Home';
 import Login from './containers/Login';
+import PrivateRoute from './containers/PrivateRoute';
 
 export default (
         <div>
         <AppWrapper/>
          <Switch>
-        <Route path="/" component={Home}/>
+        <PrivateRoute exact path="/" component={Home}/>
         <Route path="/login" component={Login}/>
          </Switch>
         </div>

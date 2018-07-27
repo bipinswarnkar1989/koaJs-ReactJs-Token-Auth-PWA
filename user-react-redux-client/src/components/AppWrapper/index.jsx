@@ -34,6 +34,7 @@ class Appwrapper extends Component {
   render() {
     const { classes } = this.props;
     const { drawerOpen }  = this.state;
+    const { user, isLoggedIn } = this.props.auth;
     return (
       <div>
         <AppBar position="static">
@@ -51,7 +52,7 @@ class Appwrapper extends Component {
           open={drawerOpen}
           onClose={() => this.toggleDrawer(false)}
           onOpen={() => this.toggleDrawer(true)}
-          disableSwipeToOpen={false}
+          disableSwipeToOpen={isLoggedIn ? false : true}
           className={classes.sideDrawer}
         >
           <div >

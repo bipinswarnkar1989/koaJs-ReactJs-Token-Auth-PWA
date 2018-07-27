@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     isLoading:false,
     error:null,
     loaded:false,
+    successMsg:null
 }
 
 const authReducer = (currentState = INITIAL_STATE, action) => {
@@ -11,7 +12,8 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
         case 'REQUEST_LOGIN':
             return {
               ...currentState,
-              isLoading:true
+              isLoading:true,
+              successMsg:null
             }
 
         case 'LOGIN_FAILED':
@@ -20,7 +22,8 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
                 isLoading:false,
                 error:action.resp.message,
                 isLoggedIn:false,
-                user:null
+                user:null,
+                successMsg:null
             }
 
         case 'LOGIN_SUCCESS':
@@ -30,6 +33,7 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
                 isLoggedIn:true,
                 error:null,
                 user:action.resp.user,
+                successMsg:action.resp.message
             }
         
        case 'REQUEST_AUTHENTICATION':
@@ -39,7 +43,8 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
                isLoggedIn:false,
                error:null,
                user:null,
-               loaded:false
+               loaded:false,
+               successMsg:null
            }
 
        case 'AUTH_SUCCESS':
@@ -49,7 +54,8 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
             isLoggedIn:true,
             error:null,
             user:action.resp.user,
-            loaded:true
+            loaded:true,
+            successMsg:action.resp.message
           }
 
       case 'AUTH_FAILED':
@@ -59,8 +65,16 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
             isLoggedIn:false,
             error:action.resp.message,
             user:null,
-            loaded:true
+            loaded:true,
+            successMsg:null
           }
+    
+      case 'FLUSH_MESSAGES':
+         return {
+            ...currentState,
+            error:null,
+            successMsg:null
+        }
     
         default:
             return currentState;
