@@ -6,9 +6,13 @@ class userController {
         console.log(`userRegister: ${JSON.stringify(ctx.request.body)}`);
         const email = ctx.request.body.email;
         const password = ctx.request.body.password;
+        const firstname = ctx.request.body.firstname;
+        const lastname = ctx.request.body.lastname;
         if (email && password) {
           const newUser = await new User({
-            email
+            email,
+            firstname,
+            lastname
           });
           await newUser.setPassword(password);
           try {

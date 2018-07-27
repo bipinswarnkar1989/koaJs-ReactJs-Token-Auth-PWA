@@ -3,7 +3,7 @@ import {
         Route,
         Switch
       } from 'react-router-dom'
-import AppWrapper from './components/AppWrapper';
+import AppWrapper from './containers/AppWrapper';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import PrivateRoute from './containers/PrivateRoute';

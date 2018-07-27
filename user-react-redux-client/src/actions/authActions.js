@@ -19,3 +19,11 @@ export const logout = () => {
         type:'REQUEST_LOGOUT'
     }
 }
+
+export const updateUser = (payload,history) => {
+    return {
+        type:'REQUEST_UPDATE_USER',
+        history,
+        payload
+    }
+}

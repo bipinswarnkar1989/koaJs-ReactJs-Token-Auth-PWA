@@ -75,6 +75,17 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
             error:null,
             successMsg:null
         }
+
+     case 'REQUEST_LOGOUT':
+         return {
+           ...currentState,
+           isLoading:false,
+           isLoggedIn:false,
+           error:null,
+           user:null,
+           loaded:true,
+           successMsg:null
+         }
     
         default:
             return currentState;
