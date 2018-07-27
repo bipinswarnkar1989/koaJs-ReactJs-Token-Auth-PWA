@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import SideMenu from '../SideMenu';
 
 const styles = theme => ({
   root: {
@@ -16,21 +18,46 @@ const styles = theme => ({
 });
 
 class Appwrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      drawerOpen:false,
+    }
+  }
+  
+  toggleDrawer(open){
+      this.setState({
+        drawerOpen:open
+      })
+  }
+
   render() {
     const { classes } = this.props;
+    const { drawerOpen }  = this.state;
     return (
       <div>
         <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton onClick={() => this.toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="title" color="inherit" className={classes.flex}>
             MernSocial
           </Typography>
-          <Button color="inherit">Login</Button>
+          {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
+      <SwipeableDrawer
+          open={drawerOpen}
+          onClose={() => this.toggleDrawer(false)}
+          onOpen={() => this.toggleDrawer(true)}
+          disableSwipeToOpen={false}
+          className={classes.sideDrawer}
+        >
+          <div >
+            <SideMenu/>
+          </div>
+        </SwipeableDrawer>
       </div>
     )
   }
