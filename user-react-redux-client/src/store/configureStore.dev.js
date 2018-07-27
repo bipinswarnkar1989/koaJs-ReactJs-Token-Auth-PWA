@@ -7,6 +7,8 @@ import { createBrowserHistory } from 'history'
 
 const sagaMiddleWare = createSagaMiddleWare();
 const history = createBrowserHistory();
+// add support form redux dev tools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore = initialState => {
     const middlewares = [
@@ -16,8 +18,7 @@ const configureStore = initialState => {
     const store = createStore(
         connectRouter(history)(rootReducer), // new root reducer with router state
         initialState,
-        compose(applyMiddleware(...middlewares)),
-        window.devToolsExtension ? window.devToolsExtension() : f => f // add support form redux dev tools
+        composeEnhancers(applyMiddleware(...middlewares)),
     );
     if (module.hot) {
         //Enable Webpack hot module replacement from reducers
