@@ -14,14 +14,6 @@ const app = new Koa();
 const port = process.env.PORT || 3001;
 dotenv.load({ path:'.env' });
 
-app.use(responseTime());
-app.use(helmet());
-app.use(logger());
-app.use(bodyParser());
-app.use(apiRoutes.routes())
-app.use(apiRoutes.allowedMethods())
-
-
 // allow cors
 app.use(async (ctx,next) => {
     ctx.set('Access-Control-Allow-Origin', '*');
@@ -29,6 +21,14 @@ app.use(async (ctx,next) => {
     ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requestes, Content-Type, Accept, Authorization');
     await next();
 });
+
+app.use(responseTime());
+app.use(helmet());
+app.use(logger());
+app.use(bodyParser());
+app.use(apiRoutes.routes())
+app.use(apiRoutes.allowedMethods())
+
 
 let mongoDbUri;
 if (process.env.NODE_ENV === 'dev') {
