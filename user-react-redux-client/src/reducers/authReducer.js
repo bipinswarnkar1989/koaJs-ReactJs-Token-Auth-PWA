@@ -86,6 +86,38 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
            loaded:true,
            successMsg:null
          }
+
+     case 'REQUEST_REGISTER':
+         return {
+            ...currentState,
+            isLoading:true,
+            isLoggedIn:false,
+            user:null,
+            error:null,
+            loaded:false,
+            successMsg:null
+         }
+    
+    case 'REGISTER_FAILED':
+        return {
+        ...currentState,
+        isLoading:false,
+        isLoggedIn:false,
+        user:null,
+        error:action.resp.message,
+        loaded:true,
+        }
+
+    case 'REGISTER_SUCCESS':
+        return {
+        ...currentState,
+        isLoading:false,
+        isLoggedIn:true,
+        user:action.resp.user,
+        error:null,
+        loaded:true,
+        successMsg:action.resp.message
+        }
     
         default:
             return currentState;

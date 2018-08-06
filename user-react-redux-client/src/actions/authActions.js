@@ -30,6 +30,8 @@ export const updateUser = (payload,history) => {
 
 export const registerUser = (payload,history) => {
     return {
-        
+        type:'REQUEST_USER_REGISTER',
+        history,
+        payload
     }
 }
