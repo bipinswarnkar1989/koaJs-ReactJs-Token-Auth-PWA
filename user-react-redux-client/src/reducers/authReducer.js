@@ -87,7 +87,7 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
            successMsg:null
          }
 
-     case 'REQUEST_REGISTER':
+     case 'REQUEST_USER_REGISTER':
          return {
             ...currentState,
             isLoading:true,
@@ -98,7 +98,7 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
             successMsg:null
          }
     
-    case 'REGISTER_FAILED':
+    case 'REGISTER_USER_FAILED':
         return {
         ...currentState,
         isLoading:false,
@@ -108,7 +108,7 @@ const authReducer = (currentState = INITIAL_STATE, action) => {
         loaded:true,
         }
 
-    case 'REGISTER_SUCCESS':
+    case 'REGISTER_USER_SUCCESS':
         return {
         ...currentState,
         isLoading:false,
