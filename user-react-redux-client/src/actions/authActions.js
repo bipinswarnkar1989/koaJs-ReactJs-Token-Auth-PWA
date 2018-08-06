@@ -27,3 +27,9 @@ export const updateUser = (payload,history) => {
         payload
     }
 }
+
+export const registerUser = (payload,history) => {
+    return {
+        
+    }
+}
