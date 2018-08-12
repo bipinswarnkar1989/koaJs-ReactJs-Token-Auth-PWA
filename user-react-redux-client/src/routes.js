@@ -8,6 +8,7 @@ import Home from './containers/Home';
 import Login from './containers/Login';
 import PrivateRoute from './containers/PrivateRoute';
 import Register from './containers/Register';
+import AddPost from './containers/AddPost';
 
 export default (
         <div>
@@ -16,6 +17,7 @@ export default (
         <PrivateRoute exact path="/" component={Home}/>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
+        <PrivateRoute exact path="/compose" component={AddPost}/>
          </Switch>
         </div>
 )
