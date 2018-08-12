@@ -30,7 +30,7 @@ function *register(action){
             yield put({
                 type:'REGISTER_USER_SUCCESS',
                 resp:response
-            });
+            });console.log(response)
             authObj.setToken(response.token);
             action.history.push('/');
         }  else if (!response.success && response.message){
