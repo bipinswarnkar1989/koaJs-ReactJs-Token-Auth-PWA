@@ -3,11 +3,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
 import red from '@material-ui/core/colors/red';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import classNames from 'classnames';
 
 const styles = {
    container:{
-       display: 'flex',
-       backgroundColor: 'DodgerBlue',
        
    },
    userContainer:{
@@ -31,6 +33,39 @@ const styles = {
   userNameDiv:{
       alignSelf: 'center',
       padding: 4,
+  },
+  inputTextContainer:{
+      width:'100%',
+      flexDirection: 'column',
+      padding: 10,
+      backgroundColor: 'white',
+  },
+  textField:{
+      width:'100%',
+      
+  },
+  AddIcon:{
+      display: 'block',
+  },
+  addMedia:{
+      display: 'flex',
+      justifyContent: 'space-around',
+      padding: 2,
+  },
+  submitBtnDiv:{
+      display: 'block',
+      textAlign:'center',
+      marginTop: 50,
+      padding: 2,
+  },
+  submitbutton:{
+      width:'99%'
+  },
+  fileInput:{
+      opacity:0,
+    display: 'block',
+    filter: 'alpha(opacity=0)',
+    position:'absolute'
   }
 }
 
@@ -61,6 +96,37 @@ class AddPost extends Component {
             </Card>
             </div>
             
+            <div className={classes.inputTextContainer}>
+            <div>
+            <TextField
+          id="textarea"
+          
+          placeholder="What's on your mind?"
+          multiline
+          className={classes.textField}
+          margin="normal"
+        />
+            </div>
+            </div>
+
+            <div className={classes.addMedia}>
+            <Button variant="contained" size="small" className={classes.button}>
+        <AddIcon className={classNames(classes.AddIcon, classes.iconSmall)} />
+        <input accept="image/*" type="file" className={classes.fileInput}/>
+        Photo
+      </Button>
+      <Button variant="contained" size="small" className={classes.button}>
+        <AddIcon className={classNames(classes.AddIcon, classes.iconSmall)} />
+        <input accept="video/*" type="file" className={classes.fileInput}/>
+        Video
+      </Button>
+            </div>
+
+        <div className={classes.submitBtnDiv}>
+        <Button variant="contained" size="large" color="primary" className={classes.submitbutton}>
+          Post
+        </Button>
+        </div>
                 
             </div>
         );
