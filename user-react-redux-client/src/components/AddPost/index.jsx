@@ -9,6 +9,8 @@ import AddIcon from '@material-ui/icons/Add';
 import classNames from 'classnames';
 import './index.css';
 import axios from 'axios';
+import { API } from '../../utils/constants';
+
 const styles = {
    container:{
        flex: 1,
@@ -83,14 +85,14 @@ class AddPost extends Component {
         data.append('file', event.target.files[0]);
         data.append('user', this.props.auth.user._id);
         //data.append('description', 'some value user types');
-
+         console.log(event.target.files[0])
         var config = {
             onUploadProgress: function(progressEvent) {
               var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
             }
           };
 
-          axios.post('/create-post-draft', data, config)
+          axios.post(`${API}/posts`, data, config)
           .then(function (res) {
             output.className = 'container';
             output.innerHTML = res.data;
@@ -139,7 +141,7 @@ class AddPost extends Component {
             <div className={classes.addMedia}>
             <div><div className="_5cqb"><span>
                 <div ariaLabel="Add photo" className="_vbz" tabIndex="0">
-                <input onChange={e => this.handleImageUpload(e)} accept="image/*" type="file" className={classes.fileInput}/><div className="_4g33"><div className="_2-24 _4g34 _5i2i _52we"><div className="_vbx"><div className="_vby"></div><div className="_vbw">Photo</div></div></div></div></div>
+                <input onChange={e => this.handleImageUpload(e)} accept="image/*" type="file" name="file" className={classes.fileInput}/><div className="_4g33"><div className="_2-24 _4g34 _5i2i _52we"><div className="_vbx"><div className="_vby"></div><div className="_vbw">Photo</div></div></div></div></div>
 
             <div ariaLabel="Add Video" class="_vbz" dataSigil="touchable" tabIndex="0" role="button"><div className="_4g33">
             <input accept="video/*" type="file" className={classes.fileInput}/>

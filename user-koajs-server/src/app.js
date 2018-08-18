@@ -5,11 +5,19 @@ const logger = require('koa-logger');
 const bodyParser = require('koa-bodyparser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const fs = require('fs-promise');
+const koaBody = require('koa-body');
+const os = require('os');
+const serve = require('koa-static');
+const path = require('path');
+const cors = require('@koa/cors');
 
 //routes
 const apiRoutes = require('./routes');
 
 const app = new Koa();
+app.use(cors());
+app.use(koaBody({ multipart: true }));
 
 const port = process.env.PORT || 3001;
 dotenv.load({ path:'.env' });
@@ -28,6 +36,28 @@ app.use(logger());
 app.use(bodyParser());
 app.use(apiRoutes.routes())
 app.use(apiRoutes.allowedMethods())
+
+
+
+// serve files from ./public
+
+app.use(serve(path.join(__dirname, '/public')));
+
+// handle uploads
+
+app.use(async function(ctx, next) {
+  // ignore non-POSTs
+  if ('post' != ctx.method) return await next();
+
+  const file = ctx.request.files.file;
+  const reader = fs.createReadStream(file.path);
+  const stream = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()));
+  reader.pipe(stream);
+  console.log('uploading %s -> %s', file.name, stream.path);
+
+  //ctx.redirect('/');
+  await next();
+});
 
 
 let mongoDbUri;

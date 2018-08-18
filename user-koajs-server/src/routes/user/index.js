@@ -8,9 +8,9 @@ class userRoutes {
    }
    
    registerRoutes(){
-    this.router.post('/userRegister', userCtrl.userRegister);
-    this.router.post('/userLogin', userCtrl.userLogin);
-    this.router.get('/validateToken', userCtrl.validateToken,userCtrl.getUser);
+    this.router.post('/users/userRegister', userCtrl.userRegister);
+    this.router.post('/users/userLogin', userCtrl.userLogin);
+    this.router.get('/users/validateToken', userCtrl.validateToken,userCtrl.getUser);
    }
 }
 
