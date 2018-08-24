@@ -38,25 +38,15 @@ class SideMenu extends Component {
           <ListItemIcon className={classes.icon}>
             <PhotoIcon />
           </ListItemIcon>
-          <ListItemText classes={{ primary: classes.primary }} inset primary="Photos" />
+          <ListItemText classes={{ primary: classes.primary }} inset primary="Home" />
         </MenuItem>
-        <MenuItem className={classes.menuItem}>
-          <ListItemIcon className={classes.icon}>
-            <VideosIcon />
-          </ListItemIcon>
-          <ListItemText classes={{ primary: classes.primary }} inset primary="Videos" />
-        </MenuItem>
-        <MenuItem className={classes.menuItem}>
-          <ListItemIcon className={classes.icon}>
-            <GroupIcon />
-          </ListItemIcon>
-          <ListItemText classes={{ primary: classes.primary }} inset primary="Friends" />
-        </MenuItem>
+        
+
         <MenuItem className={classes.menuItem}>
           <ListItemIcon className={classes.icon}>
             <ChatIcon />
           </ListItemIcon>
-          <ListItemText classes={{ primary: classes.primary }} inset primary="Messaging" />
+          <ListItemText classes={{ primary: classes.primary }} inset primary="Profile" />
         </MenuItem>
         <MenuItem onClick={() => this.props.logout()} className={classes.menuItem}>
           <ListItemIcon className={classes.icon}>
