@@ -11,13 +11,20 @@ const os = require('os');
 const serve = require('koa-static');
 const path = require('path');
 const cors = require('@koa/cors');
+//const formidable = require('koa2-formidable')
 
 //routes
 const apiRoutes = require('./routes');
 
 const app = new Koa();
 app.use(cors());
-app.use(koaBody({ multipart: true }));
+// app.use( koaBody({
+//     multipart: true,
+//     formidable: {
+//       uploadDir: __dirname + '/public'
+//     }
+//   }));
+//app.use (formidable());
 
 const port = process.env.PORT || 3001;
 dotenv.load({ path:'.env' });
@@ -47,7 +54,7 @@ app.use(serve(path.join(__dirname, '/public')));
 
 app.use(async function(ctx, next) {
   // ignore non-POSTs
-  if ('post' != ctx.method) return await next();
+  if ('POST' != ctx.method) return await next();
 
   const file = ctx.request.files.file;
   const reader = fs.createReadStream(file.path);
